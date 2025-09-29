@@ -1,6 +1,6 @@
 # RL-STIR: Reinforcement Learning for Security Threat Investigation and Response
 
-A reinforcement learning system for automated security incident investigation and response, designed to run efficiently on consumer GPUs (RTX 4060) and scale to professional setups (dual RTX 3090s).
+A reinforcement learning system for automated security incident investigation and response, designed to run efficiently on consumer GPUs and scale to professional setups.
 
 ## Project Structure
 
@@ -12,7 +12,7 @@ rl-stir/
 ├── data/                 # parquet + graph edge lists (gitignored)
 ├── modeling/             # encoders, heads
 ├── rl/                   # PPO/A2C, rollout storage
-├── configs/              # yaml for 4060 vs 3090x2
+├── configs/              # yaml for diff gpus
 └── scripts/              # train_*.py, eval_*.py, profile_*.py
 ```
 
@@ -52,3 +52,4 @@ CUDA_VISIBLE_DEVICES=0,1 torchrun --nproc_per_node=2 scripts/train_ppo.py config
 - Cost-aware investigation actions
 - GPU-optimized training pipeline
 - Real-world log parsing (Linux/Windows)
+
