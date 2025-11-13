@@ -1,0 +1,49 @@
+model:
+  d_model: 768
+  log_layers: 12
+  nhead: 12
+  ff: 3072
+  gnn_hidden: 384
+  vocab_size: 32000
+  max_seq_len: 1536
+  graph_max_nodes: 20000
+
+rl:
+  algo: ppo
+  steps: 256
+  minibatches: 8
+  clip: 0.2
+  entropy_coef: 0.01
+  gae_lambda: 0.95
+  value_coef: 0.5
+
+train:
+  bf16: true
+  batch_tokens: 120000
+  grad_accum: 1
+  lr: 3e-4
+  weight_decay: 0.01
+  warmup_steps: 2000
+  max_epochs: 100
+  grad_checkpoint: false  # Not needed with more VRAM
+
+data:
+  max_seq_len: 1536
+  graph_max_nodes: 20000
+  num_workers: 8
+  pin_memory: true
+
+optim:
+  lr: 3e-4
+  weight_decay: 0.01
+  betas: [0.9, 0.999]
+  eps: 1e-8
+
+ddp:
+  backend: nccl
+  find_unused_parameters: false
+
+loss:
+  ttp_weight: 1.0
+  tamper_weight: 0.5
+  aux_weight: 0.1

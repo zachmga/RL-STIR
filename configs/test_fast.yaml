@@ -1,0 +1,54 @@
+model:
+  d_model: 512
+  log_layers: 8
+  nhead: 8
+  ff: 2048
+  gnn_hidden: 256
+  vocab_size: 32000
+  max_seq_len: 1024
+  graph_max_nodes: 5000
+
+train:
+  fp16: true
+  batch_size: 2  # Smaller batch for testing
+  batch_tokens: 8000  # Much smaller
+  grad_checkpoint: true
+  lr: 0.0003
+  weight_decay: 0.01
+  warmup_steps: 10  # Much smaller
+  max_epochs: 1  # Just 1 epoch for testing
+  steps_per_epoch: 5  # Very few steps
+  log_interval: 1
+  save_interval: 1
+  max_grad_norm: 1.0
+
+data:
+  max_seq_len: 1024
+  graph_max_nodes: 5000
+  num_workers: 0  # No multiprocessing for testing
+  pin_memory: false  # Disable for testing
+  num_train_episodes: 10  # Very few episodes
+  num_val_episodes: 5  # Very few episodes
+
+optim:
+  lr: 0.0003
+  weight_decay: 0.01
+  betas: [0.9, 0.999]
+  eps: 1e-8
+
+loss:
+  ttp_weight: 1.0
+  tamper_weight: 0.5
+  aux_weight: 0.1
+
+# Output directory
+output_dir: outputs/test
+
+# Wandb configuration (disabled for testing)
+wandb:
+  enabled: false
+  project: rl-stir
+  name: null
+
+# Tokenizer path (will be set after training)
+tokenizer_path: null

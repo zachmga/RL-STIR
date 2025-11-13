@@ -1,0 +1,46 @@
+model:
+  d_model: 512
+  log_layers: 8
+  nhead: 8
+  ff: 2048
+  gnn_hidden: 256
+  vocab_size: 32000
+  max_seq_len: 1024
+  graph_max_nodes: 5000
+
+rl:
+  algo: ppo
+  steps: 128
+  minibatches: 4
+  clip: 0.2
+  entropy_coef: 0.01
+  gae_lambda: 0.95
+  value_coef: 0.5
+
+train:
+  fp16: true
+  batch_tokens: 32000
+  grad_accum: 2
+  lr: 3e-4
+  weight_decay: 0.01
+  warmup_steps: 1000
+  max_epochs: 100
+  grad_checkpoint: true
+  max_grad_norm: 1.0
+
+data:
+  max_seq_len: 1024
+  graph_max_nodes: 5000
+  num_workers: 4
+  pin_memory: true
+
+optim:
+  lr: 3e-4
+  weight_decay: 0.01
+  betas: [0.9, 0.999]
+  eps: 1e-8
+
+loss:
+  ttp_weight: 1.0
+  tamper_weight: 0.5
+  aux_weight: 0.1
