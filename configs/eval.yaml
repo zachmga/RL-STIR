@@ -1,0 +1,30 @@
+model:
+  d_model: 512
+  log_layers: 8
+  nhead: 8
+  ff: 2048
+  gnn_hidden: 256
+  vocab_size: 32000
+  max_seq_len: 1024
+  graph_max_nodes: 5000
+
+eval:
+  batch_size: 16
+  num_workers: 4
+  metrics:
+    - risk_aupr
+    - ttp_f1
+    - tamper_f1
+    - ttd_at_k
+    - cost_at_k
+  k_values: [5, 10, 20]  # For TTD@K and Cost@K metrics
+  confidence_thresholds: [0.5, 0.7, 0.9]
+
+data:
+  max_seq_len: 1024
+  graph_max_nodes: 5000
+  num_workers: 4
+  pin_memory: true
+
+# Checkpoint path (will be overridden by command line)
+ckpt: null
